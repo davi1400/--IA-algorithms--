@@ -1,5 +1,5 @@
 
-from br.edu.ifce.DaviL.SearchAlgorithms.Search import BreathFirstSearch
+from br.edu.ifce.DaviL.SearchAlgorithms.Search import BreathFirstSearch, DepthFirstSearch
 from br.edu.ifce.DaviL.SearchAlgorithms.Problem import RomeniaProblem
 
 
@@ -42,11 +42,15 @@ class SimpleProblemSolvingAgent(object):
 
         """
         print('1: BreathFirstSearch')
-        print('2: Depth')
+        print('2: DepthFirstSearch')
         input = int(raw_input())
         if input == 1:
-            print ('choiced BreathFirstSearch ')
+            print ('Choiced BreathFirstSearch ')
             final_node, path = BreathFirstSearch(problem)
+            return final_node, path
+        if input == 2:
+            print ('Choiced DepthFirstSearch ')
+            final_node, path = DepthFirstSearch(problem)
             return final_node, path
 
     @staticmethod

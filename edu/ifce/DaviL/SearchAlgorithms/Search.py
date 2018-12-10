@@ -4,20 +4,7 @@ from Queue import Queue
 '''
 Search Module
 '''
-
-
-def find(list, value):
-    if list[0] == 0:
-        list = []
-        return False
-    for values in list:
-        if value == values:
-            return True
-    return False
-
-
 def BreathFirstSearch(problem):
-    # Version with a list of visited nodes
     No = Node(problem.initial_state, None, None)
     if problem.test_goal(No.state):
         return No, No.Path_construct(No, problem)
@@ -35,3 +22,6 @@ def BreathFirstSearch(problem):
 
         for child in parent.expand(problem, parent):
             FIFO_LIST.put(child)
+
+def DepthFirstSearch(problem):
+    pass
