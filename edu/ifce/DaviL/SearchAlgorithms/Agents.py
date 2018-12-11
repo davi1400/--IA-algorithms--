@@ -29,7 +29,7 @@ class SimpleProblemSolvingAgent(object):
             goal_test, seq = self.search(problem)
             # print(goal_test)
             # print(self.goal)
-            if self.goal == goal_test:
+            if seq.__len__ == 0:
                 return 'Not possible find'
         return seq
 

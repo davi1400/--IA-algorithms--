@@ -24,4 +24,4 @@ def BreathFirstSearch(problem):
             FIFO_LIST.put(child)
 
 def DepthFirstSearch(problem):
-    pass
+    No = Node(problem.initial_state, None, None)
