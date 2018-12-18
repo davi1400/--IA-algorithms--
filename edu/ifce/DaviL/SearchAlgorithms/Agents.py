@@ -1,5 +1,5 @@
 
-from br.edu.ifce.DaviL.SearchAlgorithms.Search import BreathFirstSearch, DepthFirstSearch, DepthFirstSearch_ExploredVector
+from br.edu.ifce.DaviL.SearchAlgorithms.Search import BreathFirstSearch, DepthFirstSearch, DepthFirstSearch_ExploredVector, A_Star_Search
 from br.edu.ifce.DaviL.SearchAlgorithms.Problem import RomeniaProblem
 
 
@@ -44,6 +44,7 @@ class SimpleProblemSolvingAgent(object):
         print('1: BreathFirstSearch')
         print('2: DepthFirstSearch')
         print('3: DepthFirstSearch with Explored Vector')
+        print('4: A_Star_Search')
         input = int(raw_input())
         if input == 1:
             print ('Choiced BreathFirstSearch ')
@@ -56,6 +57,10 @@ class SimpleProblemSolvingAgent(object):
         if input == 3:
             print ('Choiced DepthFirstSearch with Explored Vector ')
             final_node, path = DepthFirstSearch_ExploredVector(problem)
+            return final_node, path
+        if input == 4:
+            print ('Coiced A_Star_Search')
+            final_node, path = A_Star_Search(problem)
             return final_node, path
 
     @staticmethod
@@ -94,7 +99,7 @@ class SimpleProblemSolvingAgent(object):
         # print('2 ......')
         # number_problem = int(raw_input())
         # if number_problem is 1:
-        problem = RomeniaProblem(state, goal)  # type: RomeniaProblem
+        problem = RomeniaProblem()  # type: RomeniaProblem
         return problem
 
 
