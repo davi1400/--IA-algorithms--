@@ -1,7 +1,7 @@
 from abc import abstractmethod
-from random import choice, shuffle
+from random import choice
+from numpy.random import shuffle
 from numpy import array
-from numpy import zeros
 
 
 class Problem(object):
@@ -47,6 +47,7 @@ class RomeniaProblem(Problem):
         self.initial_state = 'arad'
         self.goal = 'bucharest'
 
+    # TODO
     def actions(self, state):
 
         '''
@@ -77,10 +78,12 @@ class RomeniaProblem(Problem):
             'sibiu': {'fagaras': 99, 'rimmicu vilcea': 80, 'arad': 140, 'oradea': 151},
             'mehadia': {'lugoj': 70, 'drobeta': 75}
         }
-        shuffle(actions[state].keys())
-        shuffle(actions[state].keys())
         print actions[state]
-        return actions[state]
+        aux_list = list(actions[state].items())
+        shuffle(aux_list)
+        aux_dict = dict(aux_list)
+        print aux_dict
+        return aux_dict
 
     def result(self, state, action):
         """

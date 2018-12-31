@@ -12,7 +12,7 @@ class Node(object):
     #    self.state = parent
     #    self.action = None
 
-    def __init__(self, state, parent, action, cost, f = None):
+    def __init__(self, state, parent, action, cost, f=None):
 
         if parent == None:
             self.state = state
@@ -53,11 +53,13 @@ class Node(object):
     def _h_(self, state, problem):
         return problem.heuristic(state)
 
-
     # function that calculate the cost to Cost Uniform Search
     def _g_(self):
         return self.cost
 
     def _f_(self, state, problem):
-        self.f += int((self._h_(state, problem)+self._g_()))
+        self.f += int((self._h_(state, problem) + self._g_()))
         return
+
+    def get_cost(self):
+        return self.cost

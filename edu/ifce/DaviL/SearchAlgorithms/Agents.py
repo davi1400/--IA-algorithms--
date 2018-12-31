@@ -1,6 +1,6 @@
-
-from br.edu.ifce.DaviL.SearchAlgorithms.Search import BreathFirstSearch, DepthFirstSearch, DepthFirstSearch_ExploredVector, A_Star_Search
-from br.edu.ifce.DaviL.SearchAlgorithms.Problem import RomeniaProblem
+from edu.ifce.DaviL.SearchAlgorithms.Search import BreathFirstSearch, DepthFirstSearch, DepthFirstSearch_ExploredVector, \
+    A_Star_Search
+from edu.ifce.DaviL.SearchAlgorithms.Problem import RomeniaProblem
 
 
 class SimpleProblemSolvingAgent(object):
@@ -31,9 +31,6 @@ class SimpleProblemSolvingAgent(object):
             if seq.__len__ == 0:
                 return 'Not possible find'
         return problem.execution(seq)
-
-
-
 
     def search(self, problem):
         """
@@ -84,9 +81,7 @@ class SimpleProblemSolvingAgent(object):
         goal = 'bucharest'
         return goal
 
-
-
-    def formulate_Problem(self,state,goal):
+    def formulate_Problem(self, state, goal):
         """
 
         :param state:
@@ -101,7 +96,3 @@ class SimpleProblemSolvingAgent(object):
         # if number_problem is 1:
         problem = RomeniaProblem()  # type: RomeniaProblem
         return problem
-
-
-
-
