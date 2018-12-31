@@ -1,3 +1,4 @@
+from numpy.random import shuffle
 class Node(object):
     """
     Tree Node
@@ -10,7 +11,7 @@ class Node(object):
     #    self.state = parent
     #    self.action = None
 
-    def __init__(self, state, parent, action, cost, f=None):
+    def __init__(self, state, parent, action, cost, heuristic=None):
 
         if parent == None:
             self.state = state
@@ -18,6 +19,7 @@ class Node(object):
             self.action = None
             self.cost = 0.0
             self.f = 0
+            self.h = heuristic
 
         if parent != None:
             self.parent = parent
@@ -25,6 +27,7 @@ class Node(object):
             self.state = state
             self.cost = parent.cost + cost
             self.f = 0
+            self.h = heuristic
 
     def __str__(self):
         return self.state
@@ -32,7 +35,7 @@ class Node(object):
     def path_construct(self, node):
         path = []
         Total_cost = node.cost
-        while node.parent != None:
+        while node.parent is not None:
             path.append(node.state)
             node = node.parent
         path.append(node.state)
@@ -43,8 +46,9 @@ class Node(object):
         _list = []  #
         Actions = problem.actions(parent.state)
         for state in Actions:
-            new_node = Node(state, parent, None, Actions[state])
+            new_node = Node(state, parent, None, Actions[state], self._h_(state, problem))
             _list.append(new_node)
+        shuffle(_list)
         return _list
 
     # Heuristic function for Heuristic search

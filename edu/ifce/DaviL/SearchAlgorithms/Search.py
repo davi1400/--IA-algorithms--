@@ -28,7 +28,6 @@ def BreathFirstSearch(problem):
             FIFO_LIST.put(child)
 
 
-#  TODO
 def DepthFirstSearch(problem):
     No = Node(problem.initial_state, None, None, None)  # type: Node
     if problem.test_goal(No.state):
@@ -46,7 +45,6 @@ def DepthFirstSearch(problem):
             STACK_LIST.push(child)
 
 
-#  TODO
 def DepthFirstSearch_ExploredVector(problem):
     No = Node(problem.initial_state, None, None, None)  # type: Node
     if problem.test_goal(No.state):
@@ -92,3 +90,23 @@ def A_Star_Search(problem):
                 child._f_(child.state, problem)
             PRIORITY_LIST.append(child)
         PRIORITY_LIST = deque(sorted(PRIORITY_LIST, key=attrgetter('f')))
+
+
+def best_greedy_search(problem):
+    """
+        :type problem: object
+        """
+    No = Node(problem.initial_state, None, None, None)  # type: Node
+    if problem.test_goal(No.state):
+        return No, No.path_construct(No)
+
+    PRIORITY_LIST = deque([No])
+
+    while PRIORITY_LIST.maxlen != 0:
+        parent = PRIORITY_LIST.popleft()
+        if problem.test_goal(parent.state):
+            return parent, parent.path_construct(parent)
+
+        for child in parent.expand(problem, parent):  # type: object
+            PRIORITY_LIST.append(child)
+        PRIORITY_LIST = deque(sorted(PRIORITY_LIST, key=attrgetter('h')))

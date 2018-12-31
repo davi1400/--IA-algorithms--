@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from random import choice
-from numpy.random import shuffle
 from numpy import array
+from random import shuffle
 
 
 class Problem(object):
@@ -38,6 +38,7 @@ class EightPuzzeProblem(Problem):
                                     [7, 8, 0]])
         for i in range(self.initial_state.shape[0]):
             shuffle(self.initial_state[i])
+    
 
 
 class RomeniaProblem(Problem):
@@ -50,10 +51,10 @@ class RomeniaProblem(Problem):
     # TODO
     def actions(self, state):
 
-        '''
+        """
         :param state:
         :return: the actions of a state
-        '''
+        """
         actions = {
             'arad': {'zerind': 75, 'sibiu': 140, 'timisoara': 118},
             'zerind': {'arad': 75, 'oradea': 71},
@@ -76,12 +77,8 @@ class RomeniaProblem(Problem):
             'sibiu': {'fagaras': 99, 'rimmicu vilcea': 80, 'arad': 140, 'oradea': 151},
             'mehadia': {'lugoj': 70, 'drobeta': 75}
         }
-        print actions[state]
-        aux_list = list(actions[state].items())
-        shuffle(aux_list)
-        aux_dict = dict(aux_list)
-        print aux_dict
-        return aux_dict
+
+        return actions[state]
 
     def result(self, state, action):
         """
