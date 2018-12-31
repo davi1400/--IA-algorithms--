@@ -1,5 +1,8 @@
-from br.edu.ifce.DaviL.SearchAlgorithms.Node import Node
-from Queue import Queue, LifoQueue
+from edu.ifce.DaviL.SearchAlgorithms.Node import Node
+from Queue import Queue
+from collections import deque
+from operator import attrgetter
+from pythonds.basic.stack import Stack
 
 '''
 Search Module
@@ -25,39 +28,67 @@ def BreathFirstSearch(problem):
             FIFO_LIST.put(child)
 
 
+#  TODO
 def DepthFirstSearch(problem):
     No = Node(problem.initial_state, None, None, None)  # type: Node
     if problem.test_goal(No.state):
         return No, No.path_construct(No)
 
-    LIFO_LIST = LifoQueue()
-    LIFO_LIST.put(No)
+    STACK_LIST = Stack()
+    STACK_LIST.push(No)
 
-    while not LIFO_LIST.empty():
-        parent = LIFO_LIST.get()
+    while not STACK_LIST.isEmpty():
+        parent = STACK_LIST.pop()
         if problem.test_goal(parent.state):
             return parent, parent.path_construct(parent)
 
         for child in parent.expand(problem, parent):
-            LIFO_LIST.put(child)
+            STACK_LIST.push(child)
 
 
+#  TODO
 def DepthFirstSearch_ExploredVector(problem):
     No = Node(problem.initial_state, None, None, None)  # type: Node
     if problem.test_goal(No.state):
         return No, No.path_construct(No)
 
-    LIFO_LIST = LifoQueue()
-    LIFO_LIST.put(No)
+    STACK_LIST = Stack()
+    STACK_LIST.push(No)
     ExploredVector = []
 
-    while not LIFO_LIST.empty():
-        parent = LIFO_LIST.get()
+    while not STACK_LIST.isEmpty():
+        parent = STACK_LIST.pop()
         if problem.test_goal(parent.state):
             return parent, parent.path_construct(parent)
 
         for child in parent.expand(problem, parent):
             if child.state not in ExploredVector:
-                LIFO_LIST.put(child)
-                print(child)
+                STACK_LIST.push(child)
         ExploredVector.append(parent.state)
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Heuristic search
+
+
+def A_Star_Search(problem):
+    """
+    :type problem: object
+    """
+    No = Node(problem.initial_state, None, None, None)  # type: Node
+    No._f_(problem.initial_state, problem)
+    if problem.test_goal(No.state):
+        return No, No.path_construct(No)
+
+    PRIORITY_LIST = deque([No])
+
+    while PRIORITY_LIST.maxlen != 0:
+        parent = PRIORITY_LIST.popleft()
+        if problem.test_goal(parent.state):
+            return parent, parent.path_construct(parent)
+
+        for child in parent.expand(problem, parent):  # type: object
+            if child.f == 0:
+                child._f_(child.state, problem)
+            PRIORITY_LIST.append(child)
+        PRIORITY_LIST = deque(sorted(PRIORITY_LIST, key=attrgetter('f')))

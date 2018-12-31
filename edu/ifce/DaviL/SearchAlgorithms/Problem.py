@@ -1,6 +1,7 @@
 from abc import abstractmethod
-from random import choice, shuffle
-from numpy import zeros
+from random import choice
+from numpy.random import shuffle
+from numpy import array
 
 
 class Problem(object):
@@ -30,20 +31,28 @@ class Problem(object):
         return self.goal
 
 
+class EightPuzzeProblem(Problem):
+    def __init__(self):
+        self.initial_state = array([[1, 2, 3],
+                                    [4, 5, 6],
+                                    [7, 8, 0]])
+        for i in range(self.initial_state.shape[0]):
+            shuffle(self.initial_state[i])
+
+
 class RomeniaProblem(Problem):
-    def __init__(self, initial_state, goal):
+    def __init__(self):
         # type: () -> object
         super(Problem, self).__init__()
-        self.initial_state = initial_state
-        self.goal = goal
+        self.initial_state = 'arad'
+        self.goal = 'bucharest'
 
+    # TODO
     def actions(self, state):
 
         '''
-
         :param state:
         :return: the actions of a state
-
         '''
         actions = {
             'arad': {'zerind': 75, 'sibiu': 140, 'timisoara': 118},
@@ -67,17 +76,18 @@ class RomeniaProblem(Problem):
             'sibiu': {'fagaras': 99, 'rimmicu vilcea': 80, 'arad': 140, 'oradea': 151},
             'mehadia': {'lugoj': 70, 'drobeta': 75}
         }
-        shuffle(actions[state].keys())
         print actions[state]
-        return actions[state]
+        aux_list = list(actions[state].items())
+        shuffle(aux_list)
+        aux_dict = dict(aux_list)
+        print aux_dict
+        return aux_dict
 
     def result(self, state, action):
         """
-
         :param state:
         :param action:
         :return:  Result in a new state of the problem given an action
-
         """
 
         if action is not None:
@@ -94,3 +104,29 @@ class RomeniaProblem(Problem):
             print 'Estado atual %s ir para %s' % (path[next_action], path[next_action + 1])
 
         print 'Chegou em %s' % (path[len(path) - 1])
+
+    def heuristic(self, state):
+
+        H = {'arad': 366,
+             'bucharest': 0,
+             'craiovoa': 160,
+             'drobeta': 242,
+             'eforie': 161,
+             'fagaras': 176,
+             'giurgiu': 77,
+             'hirsova': 151,
+             'iasi': 226,
+             'lugoj': 244,
+             'mehadia': 241,
+             'neamt': 234,
+             'oradea': 380,
+             'pitesti': 101,
+             'rimmicu vilcea': 193,
+             'sibiu': 253,
+             'timisoara': 329,
+             'urziceni': 80,
+             'vaslui': 193,
+             'zerind': 374
+             }
+
+        return H[state]

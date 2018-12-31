@@ -1,6 +1,6 @@
-
-from br.edu.ifce.DaviL.SearchAlgorithms.Search import BreathFirstSearch, DepthFirstSearch, DepthFirstSearch_ExploredVector
-from br.edu.ifce.DaviL.SearchAlgorithms.Problem import RomeniaProblem
+from edu.ifce.DaviL.SearchAlgorithms.Search import BreathFirstSearch, DepthFirstSearch, DepthFirstSearch_ExploredVector, \
+    A_Star_Search
+from edu.ifce.DaviL.SearchAlgorithms.Problem import RomeniaProblem
 
 
 class SimpleProblemSolvingAgent(object):
@@ -15,10 +15,8 @@ class SimpleProblemSolvingAgent(object):
 
     def __call__(self, perception):
         """
-
         :param perception: environment perception
         :return:
-
         """
 
         seq = []
@@ -32,18 +30,14 @@ class SimpleProblemSolvingAgent(object):
                 return 'Not possible find'
         return problem.execution(seq)
 
-
-
-
     def search(self, problem):
         """
-
         :return: an search algorithm
-
         """
         print('1: BreathFirstSearch')
         print('2: DepthFirstSearch')
         print('3: DepthFirstSearch with Explored Vector')
+        print('4: A_Star_Search')
         input = int(raw_input())
         if input == 1:
             print ('Choiced BreathFirstSearch ')
@@ -57,11 +51,14 @@ class SimpleProblemSolvingAgent(object):
             print ('Choiced DepthFirstSearch with Explored Vector ')
             final_node, path = DepthFirstSearch_ExploredVector(problem)
             return final_node, path
+        if input == 4:
+            print ('Coiced A_Star_Search')
+            final_node, path = A_Star_Search(problem)
+            return final_node, path
 
     @staticmethod
     def update_state(state, percept):
         """
-
         :param state:
         :param percept:
         :return:
@@ -72,18 +69,14 @@ class SimpleProblemSolvingAgent(object):
     def formulate_goal(self, state):
         # type: (object) -> object
         """
-
         :param state:
         :return:
         """
         goal = 'bucharest'
         return goal
 
-
-
-    def formulate_Problem(self,state,goal):
+    def formulate_Problem(self, state, goal):
         """
-
         :param state:
         :param goal:
         :return:
@@ -94,9 +87,5 @@ class SimpleProblemSolvingAgent(object):
         # print('2 ......')
         # number_problem = int(raw_input())
         # if number_problem is 1:
-        problem = RomeniaProblem(state, goal)  # type: RomeniaProblem
+        problem = RomeniaProblem()  # type: RomeniaProblem
         return problem
-
-
-
-
