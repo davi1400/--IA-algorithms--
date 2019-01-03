@@ -11,30 +11,33 @@ class Node(object):
     #    self.state = parent
     #    self.action = None
 
-    def __init__(self, state, parent, action, cost, heuristic=None):
+    def __init__(self, state, parent, action, path_cost=None, heuristic=None):
 
         if parent == None:
             self.state = state
             self.parent = None
             self.action = None
-            self.cost = 0.0
+            self.path_cost = 0.0
             self.f = 0
             self.h = heuristic
+            self.depth = 0
 
         if parent != None:
             self.parent = parent
             self.action = action
             self.state = state
-            self.cost = parent.cost + cost
+            self.depth = parent.depth+1
+            self.path_cost = path_cost
             self.f = 0
             self.h = heuristic
+
 
     def __str__(self):
         return self.state
 
     def path_construct(self, node):
         path = []
-        Total_cost = node.cost
+        Total_cost = node.path_cost
         while node.parent is not None:
             path.append(node.state)
             node = node.parent
@@ -46,7 +49,7 @@ class Node(object):
         _list = []  #
         Actions = problem.actions(parent.state)
         for state in Actions:
-            new_node = Node(state, parent, None, Actions[state], self._h_(state, problem))
+            new_node = Node(state, parent, None, problem.path_cost(parent.path_cost, parent.state, state), self._h_(state, problem))
             _list.append(new_node)
         shuffle(_list)
         return _list
@@ -57,11 +60,11 @@ class Node(object):
 
     # function that calculate the cost to Cost Uniform Search
     def _g_(self):
-        return self.cost
+        return self.path_cost
 
     def _f_(self, state, problem):
         self.f += int((self._h_(state, problem) + self._g_()))
         return
 
     def get_cost(self):
-        return self.cost
+        return self.path_cost

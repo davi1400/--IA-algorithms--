@@ -12,7 +12,7 @@ class SimpleProblemSolvingAgent(object):
             Return an action
         '''
 
-    def __call__(self, perception):
+    def __call__(self, perception, problem):
         """
         :param perception: environment perception
         :return:
@@ -22,8 +22,8 @@ class SimpleProblemSolvingAgent(object):
         self.state = self.update_state(self.state, perception)
         if seq.__len__() == 0:
 
-            self.goal = self.formulate_goal(self.state)
-            problem = self.formulate_Problem(self.state, self.goal)  # type: object
+            self.goal = problem.goal
+            problem = problem  # type: object
             goal_test, seq = self.search(problem)
             if seq.__len__ == 0:
                 return 'Not possible find'

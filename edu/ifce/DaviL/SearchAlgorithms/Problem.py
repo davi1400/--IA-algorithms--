@@ -1,7 +1,8 @@
 from abc import abstractmethod
 from random import choice
-from numpy import array
+from numpy import array, where, reshape
 from random import shuffle
+from edu.ifce.DaviL.Utils.EightPuzzleEnum import EightPuzzleEnum
 
 
 class Problem(object):
@@ -30,15 +31,122 @@ class Problem(object):
     def get_goal(self):
         return self.goal
 
+    @abstractmethod
+    def path_cost(self, c, state1, state2):
+        return c + 1
 
-class EightPuzzeProblem(Problem):
+
+class EightPuzzleProblem(Problem):
+    def get_goal(self):
+        pass
+
     def __init__(self):
-        self.initial_state = array([[1, 2, 3],
-                                    [4, 5, 6],
-                                    [7, 8, 0]])
-        for i in range(self.initial_state.shape[0]):
-            shuffle(self.initial_state[i])
-    
+        self.magic_matrix = array([[1, 2, 3],
+                                   [4, 0, 6],
+                                   [7, 8, 5]])
+        for i in range(self.magic_matrix.shape[0]):
+            shuffle(self.magic_matrix[i])
+
+        i = where(self.magic_matrix == 0)[0][0]
+        j = where(self.magic_matrix == 0)[1][0]
+        self.initial_state = (i, j)
+        self.n = 3  # line
+        self.m = 3  # column
+        self.goal = array([[0, 1, 2],
+                           [3, 4, 5],
+                           [6, 7, 8]])
+
+    def actions(self, state):
+        # state is a tuple (i,j)
+        # i = state[0] and j = state[1]
+
+        # diagonal
+        if state == (0, self.m - 1):
+            print 1
+            return self.result(state, EightPuzzleEnum.DOWN), self.result(state, EightPuzzleEnum.RIGHT)
+        elif state == (self.n - 1, self.m - 1):
+            print 2
+            return self.result(state, EightPuzzleEnum.UP), self.result(state, EightPuzzleEnum.RIGHT)
+        elif state == (0, 0):
+            print 3
+            return self.result(state, EightPuzzleEnum.DOWN), self.result(state, EightPuzzleEnum.LEFT)
+        elif state == (self.n - 1, 0):
+            print 4
+            return self.result(state, EightPuzzleEnum.UP), self.result(state, EightPuzzleEnum.LEFT)
+
+        # between line or column
+        elif state[0] == 0 and (state[1] != 0 and state[1] != self.m - 1):
+            print 5
+            return self.result(state, EightPuzzleEnum.LEFT), self.result(state, EightPuzzleEnum.RIGHT), \
+                   self.result(state, EightPuzzleEnum.DOWN)
+        elif state[0] == self.n - 1 and (state[1] != 0 and state[1] != self.m - 1):
+            print 6
+            return self.result(state, EightPuzzleEnum.LEFT), self.result(state, EightPuzzleEnum.RIGHT), \
+                   self.result(state, EightPuzzleEnum.UP)
+        elif state[1] == 0 and (state[0] != 0 and state[0] != self.n - 1):
+            print 7
+            return self.result(state, EightPuzzleEnum.UP), self.result(state, EightPuzzleEnum.DOWN), \
+                   self.result(state, EightPuzzleEnum.LEFT)
+        elif state[1] == self.m - 1 and (state[0] != 0 and state[0] != self.n - 1):
+            print 8
+            return self.result(state, EightPuzzleEnum.UP), self.result(state, EightPuzzleEnum.DOWN), \
+                   self.result(state, EightPuzzleEnum.RIGHT)
+
+        else:
+            print 9
+            return self.result(state, EightPuzzleEnum.UP), self.result(state, EightPuzzleEnum.DOWN), \
+                   self.result(state, EightPuzzleEnum.RIGHT), self.result(state, EightPuzzleEnum.LEFT)
+
+    def result(self, state, action):
+        i = state[0]
+        j = state[1]
+        if action == EightPuzzleEnum.LEFT:
+            print 'left'
+            magic = self.magic_matrix.copy()
+            state_now = magic[i][j + 1]
+            magic[i][j + 1] = magic[i][j]
+            magic[i][j] = state_now
+            magic_list = reshape(magic, 9).tolist()
+            return {(i, j + 1): magic_list}, EightPuzzleEnum.LEFT
+        elif action == EightPuzzleEnum.RIGHT:
+            print 'right'
+            magic = self.magic_matrix.copy()
+            state_now = magic[i][j - 1]
+            magic[i][j - 1] = magic[i][j]
+            magic[i][j] = state_now
+            magic_list = reshape(magic, 9).tolist()
+            return {(i, j - 1): magic_list}, EightPuzzleEnum.RIGHT
+        elif action == EightPuzzleEnum.UP:
+            print 'up'
+            magic = self.magic_matrix.copy()
+            state_now = magic[i - 1][j]
+            magic[i - 1][j] = magic[i][j]
+            magic[i][j] = state_now
+            magic_list = reshape(magic, 9).tolist()
+            return {(i - 1, j): magic_list}, EightPuzzleEnum.UP
+        elif action == EightPuzzleEnum.DOWN:
+            print 'down'
+            magic = self.magic_matrix.copy()
+            state_now = magic[i + 1][j]
+            magic[i + 1][j] = magic[i][j]
+            magic[i][j] = state_now
+            magic_list = reshape(magic, 9).tolist()
+            return {(i + 1, j): magic_list}, EightPuzzleEnum.DOWN
+
+    def test_goal(self, state):
+        count = 0
+        for i in range(self.n):
+            for j in range(self.m):
+                if self.magic_matrix[i][j] != count:
+                    return False
+                count += 1
+        return True
+
+    def path_cost(self, c, state1, state2):
+        pass
+
+    def heuristic(self, state):
+        return 0
 
 
 class RomeniaProblem(Problem):
@@ -95,6 +203,9 @@ class RomeniaProblem(Problem):
 
     def get_goal(self):
         return self.goal
+
+    def path_cost(self, c, state1, state2):
+        return c + self.actions(state1)[state2]
 
     def execution(self, path):
         for next_action in range(len(path) - 1):
