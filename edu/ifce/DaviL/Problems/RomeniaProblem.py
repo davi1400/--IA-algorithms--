@@ -1,5 +1,7 @@
+from edu.ifce.DaviL.SearchAlgorithms.Node import Node
 from edu.ifce.DaviL.Problems.Problem import Problem
 from random import choice
+from numpy.random import shuffle
 
 
 class RomeniaProblem(Problem):
@@ -56,6 +58,16 @@ class RomeniaProblem(Problem):
 
     def get_goal(self):
         return self.goal
+
+    def expand(self, parent):
+        _list = []  #
+        Actions = self.actions(parent.state)
+        for state in Actions:
+            new_node = Node(state, parent, None, self.path_cost(parent.path_cost, parent.state, state),
+                            self.heuristic(state))
+            _list.append(new_node)
+        shuffle(_list)
+        return _list
 
     def path_cost(self, c, state1, state2):
         return c + self.actions(state1)[state2]

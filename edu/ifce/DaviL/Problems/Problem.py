@@ -17,6 +17,12 @@ class Problem(object):
 
     @abstractmethod
     def result(self, state, action):
+        # type: (object, object) -> object
+        """
+
+        :rtype: object
+        """
+        # type: (object, object) -> object
         return NotImplementedError
 
     def test_goal(self, state):

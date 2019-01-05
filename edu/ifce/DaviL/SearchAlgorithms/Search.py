@@ -25,7 +25,7 @@ def BreathFirstSearch(problem):
         if problem.test_goal(parent.state):
             return parent, parent.path_construct(parent)
 
-        for child in parent.expand(problem, parent):
+        for child in problem.expand(parent):
             FIFO_LIST.put(child)
 
 
@@ -42,7 +42,7 @@ def DepthFirstSearch(problem):
         if problem.test_goal(parent.state):
             return parent, parent.path_construct(parent)
 
-        for child in parent.expand(problem, parent):
+        for child in problem.expand(parent):
             STACK_LIST.push(child)
 
 
@@ -60,7 +60,7 @@ def DepthFirstSearch_ExploredVector(problem):
         if problem.test_goal(parent.state):
             return parent, parent.path_construct(parent)
 
-        for child in parent.expand(problem, parent):
+        for child in problem.expand(parent):
             print child.state
             if child.state not in ExploredVector:
                 STACK_LIST.push(child)
@@ -87,7 +87,7 @@ def A_Star_Search(problem):
         if problem.test_goal(parent.state):
             return parent, parent.path_construct(parent)
 
-        for child in parent.expand(problem, parent):  # type: object
+        for child in problem.expand(parent):  # type: object
             if child.f == 0:
                 child._f_(child.state, problem)
             PRIORITY_LIST.append(child)
@@ -109,6 +109,6 @@ def best_greedy_search(problem):
         if problem.test_goal(parent.state):
             return parent, parent.path_construct(parent)
 
-        for child in parent.expand(problem, parent):  # type: object
+        for child in problem.expand(parent):  # type: object
             PRIORITY_LIST.append(child)
         PRIORITY_LIST = deque(sorted(PRIORITY_LIST, key=attrgetter('h')))

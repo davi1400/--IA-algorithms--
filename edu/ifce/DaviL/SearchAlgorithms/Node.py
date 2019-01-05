@@ -1,6 +1,3 @@
-from numpy.random import shuffle
-
-
 class Node(object):
     """
     Tree Node
@@ -45,16 +42,6 @@ class Node(object):
         path.append(node.state)
         print 'The total cost is %d' % Total_cost
         return path[::-1]
-
-    def expand(self, problem, parent):
-        _list = []  #
-        Actions = problem.actions(parent.state)
-        for state in Actions:
-            new_node = Node(state, parent, None, problem.path_cost(parent.path_cost, parent.state, state),
-                            self._h_(state, problem))
-            _list.append(new_node)
-        shuffle(_list)
-        return _list
 
     # Heuristic function for Heuristic search
     def _h_(self, state, problem):
