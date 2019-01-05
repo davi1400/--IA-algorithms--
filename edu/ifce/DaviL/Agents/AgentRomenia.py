@@ -1,5 +1,5 @@
-from edu.ifce.DaviL.SearchAlgorithms.Agents import SimpleProblemSolvingAgent
-from edu.ifce.DaviL.SearchAlgorithms.Problem import RomeniaProblem
+from edu.ifce.DaviL.Agents.Agents import SimpleProblemSolvingAgent
+from edu.ifce.DaviL.Problems.RomeniaProblem import RomeniaProblem
 if __name__ == '__main__':
     Agent = SimpleProblemSolvingAgent()
     environment = RomeniaProblem()

@@ -1,4 +1,6 @@
 from numpy.random import shuffle
+
+
 class Node(object):
     """
     Tree Node
@@ -26,11 +28,10 @@ class Node(object):
             self.parent = parent
             self.action = action
             self.state = state
-            self.depth = parent.depth+1
+            self.depth = parent.depth + 1
             self.path_cost = path_cost
             self.f = 0
             self.h = heuristic
-
 
     def __str__(self):
         return self.state
@@ -49,7 +50,8 @@ class Node(object):
         _list = []  #
         Actions = problem.actions(parent.state)
         for state in Actions:
-            new_node = Node(state, parent, None, problem.path_cost(parent.path_cost, parent.state, state), self._h_(state, problem))
+            new_node = Node(state, parent, None, problem.path_cost(parent.path_cost, parent.state, state),
+                            self._h_(state, problem))
             _list.append(new_node)
         shuffle(_list)
         return _list

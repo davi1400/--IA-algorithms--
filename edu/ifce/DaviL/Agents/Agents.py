@@ -1,5 +1,4 @@
 from edu.ifce.DaviL.SearchAlgorithms.Search import *
-from edu.ifce.DaviL.SearchAlgorithms.Problem import RomeniaProblem
 
 
 class SimpleProblemSolvingAgent(object):
@@ -49,6 +48,7 @@ class SimpleProblemSolvingAgent(object):
             return final_node, path
         if input == 3:
             print ('Choiced DepthFirstSearch with Explored Vector ')
+            type(DepthFirstSearch_ExploredVector(problem))
             final_node, path = DepthFirstSearch_ExploredVector(problem)
             return final_node, path
         if input == 4:
@@ -71,25 +71,7 @@ class SimpleProblemSolvingAgent(object):
         return state
 
     def formulate_goal(self, state):
-        # type: (object) -> object
-        """
-        :param state:
-        :return:
-        """
-        goal = 'bucharest'
-        return goal
+       pass
 
     def formulate_Problem(self, state, goal):
-        """
-        :param state:
-        :param goal:
-        :return:
-        """
-
-        # print('choice the problem')
-        # print('1 Romania Problem')
-        # print('2 ......')
-        # number_problem = int(raw_input())
-        # if number_problem is 1:
-        problem = RomeniaProblem()  # type: RomeniaProblem
-        return problem
+       pass
