@@ -61,7 +61,6 @@ def DepthFirstSearch_ExploredVector(problem):
             return parent, parent.path_construct(parent)
 
         for child in problem.expand(parent):
-            print child.state
             if child.state not in ExploredVector:
                 STACK_LIST.push(child)
         ExploredVector.append(parent.state)
