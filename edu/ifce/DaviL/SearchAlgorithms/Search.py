@@ -3,6 +3,7 @@ from Queue import Queue
 from collections import deque
 from operator import attrgetter
 from pythonds.basic.stack import Stack
+import datetime
 
 '''
 Search Module
@@ -15,18 +16,19 @@ def BreathFirstSearch(problem):
     if problem.test_goal(No.state):
         return No, No.path_construct(No)
 
-    FIFO_LIST = Queue()  # type: Queue # FIFO list
-    FIFO_LIST.put(No)
+    LIFO_LIST = Queue()  # type: Queue # FIFO list
+    LIFO_LIST.put(No)
 
     # VISITED_NODES = []
 
-    while not FIFO_LIST.empty():
-        parent = FIFO_LIST.get()
+    while not LIFO_LIST.empty():
+        parent = LIFO_LIST.get()
         if problem.test_goal(parent.state):
             return parent, parent.path_construct(parent)
 
         for child in problem.expand(parent):
-            FIFO_LIST.put(child)
+            LIFO_LIST.put(child)
+        print parent.depth
 
 
 def DepthFirstSearch(problem):
