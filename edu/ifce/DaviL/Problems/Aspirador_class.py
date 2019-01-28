@@ -6,7 +6,7 @@ Created on Thu Jan 24 20:42:21 2019
 """
 
 from edu.ifce.DaviL.SearchAlgorithms.Node import Node
-from edu.ifce.DaviL.SearchAlgorithms.Problem import Problem
+from edu.ifce.DaviL.Problems.Problem import Problem
 from random import shuffle
 import numpy as np
 import copy
