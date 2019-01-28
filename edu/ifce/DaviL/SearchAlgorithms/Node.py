@@ -37,13 +37,16 @@ class Node(object):
 
     def path_construct(self, node):
         path = []
+        act = []
         Total_cost = node.path_cost
         while node.parent is not None:
             path.append(node.state)
+            act.append(node.action)
             node = node.parent
         path.append(node.state)
+        act.append(node.action)
         print 'The total cost is %d' % Total_cost
-        return path[::-1]
+        return path[::-1], act[::-1]
 
     # Heuristic function for Heuristic search
     def _h_(self, state, problem):

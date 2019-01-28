@@ -1,5 +1,6 @@
 from abc import abstractmethod
 
+
 class Problem(object):
     """
         Abstract class
@@ -35,7 +36,3 @@ class Problem(object):
     @abstractmethod
     def path_cost(self, c, state1, state2):
         return c + 1
-
-
-
-

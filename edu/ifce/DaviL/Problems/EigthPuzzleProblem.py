@@ -7,21 +7,8 @@ from numpy.random import randint
 
 class EightPuzzleProblem(Problem):
 
-    def __init__(self, random_moves, initial_state= None):
-        if initial_state is None:
-            self.initial_state = self.generate(random_moves)
-            while not self.isSolvable():
-                self.initial_state = self.generate(random_moves)
-        else:
-            self.initial_state = initial_state
-        # random_moves = randint(100)
-        # for moves in range(random_moves):
-        #    i_random = randint(len(self.initial_state))
-        #    i_zero = where(array(self.initial_state) == 0)[0][0]
-        #    aux = self.initial_state[i_random]
-        #    self.initial_state[i_random] = self.initial_state[i_zero]
-        #    self.initial_state[i_zero] = aux
-        # print random_moves
+    def __init__(self, random_moves):
+        self.initial_state = self.generate(random_moves)
         print reshape(self.initial_state, (3, 3))
         self.goal = [1, 2, 3, 4, 5, 6, 7, 8, 0]
         # self.Visited_nodes = [self.initial_state]
@@ -38,11 +25,9 @@ class EightPuzzleProblem(Problem):
     def generate(self, random_moves):
         self.initial_state = [1, 2, 3, 4, 5, 6, 7, 8, 0]
         for i_random in range(random_moves):
-            j_random = randint(len(self.initial_state))
-            i_zero = where(array(self.initial_state) == 0)[0][0]
-            aux = self.initial_state[j_random]
-            self.initial_state[j_random] = self.initial_state[i_zero]
-            self.initial_state[i_zero] = aux
+            random_action = randint(len(self.actions(self.initial_state)))
+            all_actions = self.actions(self.initial_state)
+            self.initial_state = all_actions[random_action][0]
         return self.initial_state
 
     def actions(self, state):
