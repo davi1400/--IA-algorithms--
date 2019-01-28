@@ -20,6 +20,7 @@ class Node(object):
             self.f = 0
             self.h = heuristic
             self.depth = 0
+            self.g = self.path_cost
 
         if parent != None:
             self.parent = parent
@@ -29,6 +30,7 @@ class Node(object):
             self.path_cost = path_cost
             self.f = 0
             self.h = heuristic
+            self.g = self.path_cost
 
     def __str__(self):
         return self.state

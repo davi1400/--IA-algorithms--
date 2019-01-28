@@ -1,4 +1,5 @@
 from edu.ifce.DaviL.SearchAlgorithms.Search import *
+from abc import abstractmethod
 
 
 class SimpleProblemSolvingAgent(object):
@@ -11,67 +12,243 @@ class SimpleProblemSolvingAgent(object):
             Return an action
         '''
 
-    def __call__(self, perception, problem):
-        """
-        :param perception: environment perception
-        :return:
-        """
-
-        seq = []
-        self.state = self.update_state(self.state, perception)
-        if seq.__len__() == 0:
-
-            self.goal = problem.goal
-            problem = problem  # type: object
-            goal_test, seq = self.search(problem)
-            if seq.__len__ == 0:
-                return 'Not possible find'
-        return problem.execution(seq)
-
+    @abstractmethod
     def search(self, problem):
-        """
-        :return: an search algorithm
-        """
-        print('1: BreathFirstSearch')
-        print('2: DepthFirstSearch')
-        print('3: DepthFirstSearch with Explored Vector')
-        print('4: A_Star_Search')
-        print('5: best_greedy_search')
-        input = int(raw_input())
-        if input == 1:
-            print ('Choiced BreathFirstSearch ')
-            final_node, path = BreathFirstSearch(problem)
-            return final_node, path
-        if input == 2:
-            print ('Choiced DepthFirstSearch ')
-            final_node, path = DepthFirstSearch(problem)
-            return final_node, path
-        if input == 3:
-            print ('Choiced DepthFirstSearch with Explored Vector ')
-            type(DepthFirstSearch_ExploredVector(problem))
-            final_node, path = DepthFirstSearch_ExploredVector(problem)
-            return final_node, path
-        if input == 4:
-            print ('Coiced A_Star_Search')
-            final_node, path = A_Star_Search(problem)
-            return final_node, path
-        if input == 5:
-            print ('Coiced best_greedy_search')
-            final_node, path = best_greedy_search(problem)
-            return final_node, path
+        pass
 
-    @staticmethod
+    @abstractmethod
     def update_state(state, percept):
         """
         :param state:
         :param percept:
         :return:
         """
-        state = percept
-        return state
+        pass
+
+    @abstractmethod
+    def formulate_goal(self, state):
+        pass
+
+    @abstractmethod
+    def formulate_Problem(self, state, goal):
+        pass
+
+
+# ------------------------------------------------------------------------------------------------
+
+
+class AgentAStar(SimpleProblemSolvingAgent):
+
+    def __init__(self):
+        super(SimpleProblemSolvingAgent)
+
+    def __call__(self, percept, problem):
+        final_node, path = self.search(problem)
+        if path is []:
+            print "Not path"
+            return []
+        else:
+            problem.execution(path)
+
+    def search(self, problem):
+        final_node, sequence = A_Star_Search(problem)
+        print final_node.state
+        return final_node, sequence
+
+    def update_state(state, percept):
+        pass
 
     def formulate_goal(self, state):
-       pass
+        pass
 
     def formulate_Problem(self, state, goal):
-       pass
+        pass
+
+
+class AgentBestGreedySearch(SimpleProblemSolvingAgent):
+    def __init__(self):
+        super(SimpleProblemSolvingAgent)
+
+    def __call__(self, percept, problem):
+        final_node, path = self.search(problem)
+        if path is []:
+            print "Not path"
+            return []
+        else:
+            problem.execution(path)
+
+    def search(self, problem):
+        final_node, sequence = best_greedy_search(problem)
+        print final_node.state
+        return final_node, sequence
+
+    def update_state(self, state, percept):
+        pass
+
+    def formulate_goal(self, state):
+        pass
+
+    def formulate_Problem(self, state, goal):
+        pass
+
+
+# ------------------------------------------------------------------------------------------------
+
+
+class AgentBreathFirstSearch(SimpleProblemSolvingAgent):
+    def __init__(self):
+        super(SimpleProblemSolvingAgent)
+
+    def __call__(self, percept, problem):
+        final_node, path = self.search(problem)
+        if path is []:
+            print "Not path"
+            return []
+        else:
+            problem.execution(path)
+
+    def search(self, problem):
+        final_node, sequence = BreathFirstSearch(problem)
+        print final_node.state
+        return final_node, sequence
+
+    def update_state(self, state, percept):
+        pass
+
+    def formulate_goal(self, state):
+        pass
+
+    def formulate_Problem(self, state, goal):
+        pass
+
+
+class AgentDepthFirstSearch(SimpleProblemSolvingAgent):
+    def __init__(self):
+        super(SimpleProblemSolvingAgent)
+
+    def __call__(self, percept, problem):
+        final_node, path = self.search(problem)
+        if path is []:
+            print "Not path"
+            return []
+        else:
+            problem.execution(path)
+
+    def search(self, problem):
+        final_node, sequence = DepthFirstSearch(problem)
+        print final_node.state
+        return final_node, sequence
+
+    def update_state(self, state, percept):
+        pass
+
+    def formulate_goal(self, state):
+        pass
+
+    def formulate_Problem(self, state, goal):
+        pass
+
+
+class AgentDepthFirstSearchExplored(SimpleProblemSolvingAgent):
+    def __init__(self):
+        super(SimpleProblemSolvingAgent)
+
+    def __call__(self, percept, problem):
+        final_node, path = self.search(problem)
+        if path is []:
+            print "Not path"
+            return []
+        else:
+            problem.execution(path)
+
+    def search(self, problem):
+        final_node, sequence = DepthFirstSearch_ExploredVector(problem)
+        print final_node.state
+        return final_node, sequence
+
+    def update_state(self, state, percept):
+        pass
+
+    def formulate_goal(self, state):
+        pass
+
+    def formulate_Problem(self, state, goal):
+        pass
+
+
+class AgentBirectionalSearch(SimpleProblemSolvingAgent):
+    def __init__(self):
+        super(SimpleProblemSolvingAgent)
+
+    def __call__(self, percept, problem):
+        path = self.search(problem)
+        if path is []:
+            print "Not path"
+            return []
+        else:
+            problem.execution(path)
+
+    def search(self, problem):
+        sequence = bidirectional_search(problem)
+        return sequence
+
+    def update_state(self, state, percept):
+        pass
+
+    def formulate_goal(self, state):
+        pass
+
+    def formulate_Problem(self, state, goal):
+        pass
+
+
+class AgentUnifordCostSearch(SimpleProblemSolvingAgent):
+    def __init__(self):
+        super(SimpleProblemSolvingAgent)
+
+    def __call__(self, percept, problem):
+        path = self.search(problem)
+        if path is []:
+            print "Not path"
+            return []
+        else:
+            problem.execution(path)
+
+    def search(self, problem):
+        sequence = cost_uniform_search(problem)
+        return sequence
+
+    def update_state(self, state, percept):
+        pass
+
+    def formulate_goal(self, state):
+        pass
+
+    def formulate_Problem(self, state, goal):
+        pass
+
+
+class AgentIterativeDeepingSearch(SimpleProblemSolvingAgent):
+    def __init__(self):
+        super(SimpleProblemSolvingAgent)
+
+    def __call__(self, percept, problem):
+        path = self.search(problem)
+        if path is []:
+            print "Not path"
+            return []
+        else:
+            problem.execution(path)
+
+    def search(self, problem):
+        sequence = iterative_deep_limited_search(problem)
+        return sequence
+
+    def update_state(self, state, percept):
+        pass
+
+    def formulate_goal(self, state):
+        pass
+
+    def formulate_Problem(self, state, goal):
+        pass

@@ -1,17 +1,22 @@
 from edu.ifce.DaviL.SearchAlgorithms.Node import Node
 from edu.ifce.DaviL.Problems.Problem import Problem
 from random import choice
-from numpy.random import shuffle
+from numpy.random import shuffle, randint
 
 
 class RomeniaProblem(Problem):
     def __init__(self):
         # type: () -> object
         super(Problem, self).__init__()
-        self.initial_state = 'arad'
+        self.initial_state = self.random_state()
         self.goal = 'bucharest'
 
     # TODO
+    def random_state(self):
+        aux_list = ['arad', 'zerind', 'timisoara', 'bucharest', 'craiovoa', 'drobeta', 'eforie', 'fagaras', 'hirsova',
+                    'iasi', 'lugoj', 'oradea', 'pitesti', 'urziceni', 'neamt', 'vaslui', 'giurgiu', 'rimmicu vilcea',
+                                                                                              'sibiu', 'mehadia']
+        return aux_list[randint(len(aux_list))]
     def actions(self, state):
 
         """
