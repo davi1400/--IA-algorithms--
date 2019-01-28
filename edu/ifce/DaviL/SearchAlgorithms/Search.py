@@ -208,25 +208,26 @@ def A_Star_Search(problem):
         return No.path_construct(No)
 
     PRIORITY_LIST = deque([No])
-    open_list = list()
+    # open_list = list()
 
     while PRIORITY_LIST.__len__() != 0:
         parent = PRIORITY_LIST.popleft()
-        open_list.append(parent.state)
+        # open_list.append(parent.state)
 
         if problem.test_goal(parent.state):
             return parent.path_construct(parent)
 
-        for child in problem.expand(parent):  # type: objec
+        for child in problem.expand(parent, True):  # type: objec
             if child.f == 0:
                 child._f_(child.state, problem)
-            if child.state in open_list:
-                continue
-            open_list.append(child.state)
+            # if child.state in open_list:
+            #    continue
+            # open_list.append(child.state)
             PRIORITY_LIST.append(child)
-        open_list.remove(parent.state)
+        # open_list.remove(parent.state)
         PRIORITY_LIST = deque(sorted(PRIORITY_LIST, key=attrgetter('f')))
     return [], []
+
 
 def best_greedy_search(problem):
     """
@@ -237,21 +238,21 @@ def best_greedy_search(problem):
         return No.path_construct(No)
 
     PRIORITY_LIST = deque([No])
-    open_list = list()
+    # open_list = list()
 
     while PRIORITY_LIST.maxlen != 0:
         parent = PRIORITY_LIST.popleft()
-        open_list.append(parent.state)
+        # open_list.append(parent.state)
 
         if problem.test_goal(parent.state):
             return parent.path_construct(parent)
 
-        for child in problem.expand(parent):  # type: object
-            if child.state in open_list:
-                continue
-            open_list.append(child.state)
+        for child in problem.expand(parent, True):  # type: object
+            # if child.state in open_list:
+            #    continue
+            # open_list.append(child.state)
             PRIORITY_LIST.append(child)
-        open_list.remove(parent.state)
+        # open_list.remove(parent.state)
 
         PRIORITY_LIST = deque(sorted(PRIORITY_LIST, key=attrgetter('h')))
     return [], []

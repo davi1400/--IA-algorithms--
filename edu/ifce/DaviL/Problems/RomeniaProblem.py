@@ -64,7 +64,7 @@ class RomeniaProblem(Problem):
     def get_goal(self):
         return self.goal
 
-    def expand(self, parent):
+    def expand(self, parent, H = False):
         _list = []  #
         Actions = self.actions(parent.state)
         for state in Actions:

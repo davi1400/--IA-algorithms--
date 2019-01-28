@@ -76,15 +76,28 @@ class EightPuzzleProblem(Problem):
 
         return all_actions
 
-    def expand(self, parent):
+    def expand(self, parent, H = False):
         _list = []
-        # self.Visited_nodes.append(parent.state)
-        for state, act in self.actions(parent.state):
-            # if state not in self.Visited_nodes:
-            new_node = Node(state, parent, act, self.path_cost(parent.path_cost, parent.state, state),
-                            self.heuristic(state))
-            _list.append(new_node)
-        shuffle(_list)
+        if H:
+            # self.Visited_nodes.append(parent.state)
+            self.explored.append(parent.state)
+            for state, act in self.actions(parent.state):
+                # if state not in self.Visited_nodes:
+                if state not in self.explored:
+                    new_node = Node(state, parent, act, self.path_cost(parent.path_cost, parent.state, state),
+                                    self.heuristic(state))
+                    _list.append(new_node)
+                    self.explored.append(new_node.state)
+            shuffle(_list)
+            self.explored.remove(parent.state)
+        else:
+            # self.Visited_nodes.append(parent.state)
+            for state, act in self.actions(parent.state):
+                # if state not in self.Visited_nodes:
+                new_node = Node(state, parent, act, self.path_cost(parent.path_cost, parent.state, state),
+                                self.heuristic(state))
+                _list.append(new_node)
+            shuffle(_list)
         return _list
 
     def path_cost(self, c, state1, state2):
