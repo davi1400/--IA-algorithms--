@@ -43,17 +43,16 @@ class AgentAStar(SimpleProblemSolvingAgent):
         super(SimpleProblemSolvingAgent)
 
     def __call__(self, percept, problem):
-        final_node, path = self.search(problem)
+        path, acts = self.search(problem)
         if path is []:
             print "Not path"
             return []
         else:
-            problem.execution(path)
+            problem.execution(path, acts)
 
     def search(self, problem):
-        final_node, sequence = A_Star_Search(problem)
-        print final_node.state
-        return final_node, sequence
+        path, acts = A_Star_Search(problem)
+        return path, acts
 
     def update_state(state, percept):
         pass
@@ -70,17 +69,16 @@ class AgentBestGreedySearch(SimpleProblemSolvingAgent):
         super(SimpleProblemSolvingAgent)
 
     def __call__(self, percept, problem):
-        final_node, path = self.search(problem)
+        path, acts = self.search(problem)
         if path is []:
             print "Not path"
             return []
         else:
-            problem.execution(path)
+            problem.execution(path, acts)
 
     def search(self, problem):
-        final_node, sequence = best_greedy_search(problem)
-        print final_node.state
-        return final_node, sequence
+        path, acts = best_greedy_search(problem)
+        return path, acts
 
     def update_state(self, state, percept):
         pass
@@ -100,17 +98,16 @@ class AgentBreathFirstSearch(SimpleProblemSolvingAgent):
         super(SimpleProblemSolvingAgent)
 
     def __call__(self, percept, problem):
-        final_node, path = self.search(problem)
+        path, acts = self.search(problem)
         if path is []:
             print "Not path"
             return []
         else:
-            problem.execution(path)
+            problem.execution(path, acts)
 
     def search(self, problem):
-        final_node, sequence = BreathFirstSearch(problem)
-        print final_node.state
-        return final_node, sequence
+        path, acts = BreathFirstSearch(problem)
+        return path, acts
 
     def update_state(self, state, percept):
         pass
@@ -127,17 +124,16 @@ class AgentDepthFirstSearch(SimpleProblemSolvingAgent):
         super(SimpleProblemSolvingAgent)
 
     def __call__(self, percept, problem):
-        final_node, path = self.search(problem)
+        path, acts = self.search(problem)
         if path is []:
             print "Not path"
             return []
         else:
-            problem.execution(path)
+            problem.execution(path, acts)
 
     def search(self, problem):
-        final_node, sequence = DepthFirstSearch(problem)
-        print final_node.state
-        return final_node, sequence
+        path, acts = DepthFirstSearch(problem)
+        return path, acts
 
     def update_state(self, state, percept):
         pass
@@ -154,17 +150,16 @@ class AgentDepthFirstSearchExplored(SimpleProblemSolvingAgent):
         super(SimpleProblemSolvingAgent)
 
     def __call__(self, percept, problem):
-        final_node, path = self.search(problem)
+        path, acts = self.search(problem)
         if path is []:
             print "Not path"
             return []
         else:
-            problem.execution(path)
+            problem.execution(path, acts)
 
     def search(self, problem):
-        final_node, sequence = DepthFirstSearch_ExploredVector(problem)
-        print final_node.state
-        return final_node, sequence
+        path, acts = DepthFirstSearch_ExploredVector(problem)
+        return path, acts
 
     def update_state(self, state, percept):
         pass
@@ -181,16 +176,16 @@ class AgentBirectionalSearch(SimpleProblemSolvingAgent):
         super(SimpleProblemSolvingAgent)
 
     def __call__(self, percept, problem):
-        path = self.search(problem)
+        path, acts = self.search(problem)
         if path is []:
             print "Not path"
             return []
         else:
-            problem.execution(path)
+            problem.execution(path, acts)
 
     def search(self, problem):
-        sequence = bidirectional_search(problem)
-        return sequence
+        path, acts = bidirectional_search(problem)
+        return path, acts
 
     def update_state(self, state, percept):
         pass
@@ -207,16 +202,16 @@ class AgentUnifordCostSearch(SimpleProblemSolvingAgent):
         super(SimpleProblemSolvingAgent)
 
     def __call__(self, percept, problem):
-        path = self.search(problem)
+        path, acts = self.search(problem)
         if path is []:
             print "Not path"
             return []
         else:
-            problem.execution(path)
+            problem.execution(path, acts)
 
     def search(self, problem):
-        sequence = cost_uniform_search(problem)
-        return sequence
+        path, acts = cost_uniform_search(problem)
+        return path, acts
 
     def update_state(self, state, percept):
         pass
@@ -233,16 +228,16 @@ class AgentIterativeDeepingSearch(SimpleProblemSolvingAgent):
         super(SimpleProblemSolvingAgent)
 
     def __call__(self, percept, problem):
-        path = self.search(problem)
+        path, acts = self.search(problem)
         if path is []:
             print "Not path"
             return []
         else:
-            problem.execution(path)
+            problem.execution(path, acts)
 
     def search(self, problem):
-        sequence = iterative_deep_limited_search(problem)
-        return sequence
+        path, acts = iterative_deep_limited_search(problem)
+        return path, acts
 
     def update_state(self, state, percept):
         pass

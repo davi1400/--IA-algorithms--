@@ -124,8 +124,8 @@ class EightPuzzleProblem(Problem):
             return True
         return False
 
-    def execution(self, path):
+    def execution(self, path, acts):
         for next_action in range(len(path) - 1):
-            print reshape(path[next_action], (3, 3))
+            print reshape(path[next_action], (3, 3)), 'move empty tile to %s' % (acts[next_action+1])
         print reshape(path[len(path) - 1], (3, 3))
         return path

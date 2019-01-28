@@ -77,7 +77,7 @@ class RomeniaProblem(Problem):
     def path_cost(self, c, state1, state2):
         return c + self.actions(state1)[state2]
 
-    def execution(self, path):
+    def execution(self, path, acts):
         for next_action in range(len(path) - 1):
             print 'Estado atual %s ir para %s' % (path[next_action], path[next_action + 1])
 

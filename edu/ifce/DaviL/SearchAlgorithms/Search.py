@@ -15,7 +15,7 @@ Search Module
 def BreathFirstSearch(problem):
     No = Node(problem.initial_state, None, None, 0.0)
     if problem.test_goal(No.state):
-        return No, No.path_construct(No)
+        return No.path_construct(No)
 
     LIFO_LIST = Queue()  # type: Queue # FIFO list
     LIFO_LIST.put(No)
@@ -23,18 +23,18 @@ def BreathFirstSearch(problem):
     while not LIFO_LIST.empty():
         parent = LIFO_LIST.get()
         if problem.test_goal(parent.state):
-            return parent, parent.path_construct(parent)
+            return parent.path_construct(parent)
 
         for child in problem.expand(parent):
             LIFO_LIST.put(child)
 
-    return parent, []
+    return [], []
 
 
 def DepthFirstSearch(problem):
     No = Node(problem.initial_state, None, None, None)  # type: Node
     if problem.test_goal(No.state):
-        return No, No.path_construct(No)
+        return No.path_construct(No)
 
     STACK_LIST = Stack()
     STACK_LIST.push(No)
@@ -42,17 +42,17 @@ def DepthFirstSearch(problem):
     while not STACK_LIST.isEmpty():
         parent = STACK_LIST.pop()
         if problem.test_goal(parent.state):
-            return parent, parent.path_construct(parent)
+            return parent.path_construct(parent)
 
         for child in problem.expand(parent):
             STACK_LIST.push(child)
-    return parent, []
+    return [], []
 
 
 def DepthFirstSearch_ExploredVector(problem):
     No = Node(problem.initial_state, None, None, None)  # type: Node
     if problem.test_goal(No.state):
-        return No, No.path_construct(No)
+        return No.path_construct(No)
 
     STACK_LIST = Stack()
     STACK_LIST.push(No)
@@ -62,13 +62,13 @@ def DepthFirstSearch_ExploredVector(problem):
         # now = datetime.datetime.now()
         parent = STACK_LIST.pop()
         if problem.test_goal(parent.state):
-            return parent, parent.path_construct(parent)
+            return parent.path_construct(parent)
 
         for child in problem.expand(parent):
             if child.state not in ExploredVector:
                 STACK_LIST.push(child)
         ExploredVector.append(parent.state)
-    return parent, []
+    return [], []
 
 
 def BPL(problem, limit):
@@ -95,8 +95,7 @@ def BPL(problem, limit):
                         count += 1
         else:
             continue
-    print count
-    return False, []
+    return [], []
 
 
 def iterative_deep_limited_search(problem):
@@ -124,7 +123,7 @@ def cost_uniform_search(problem):
             priority_list.append(child)
         priority_list = deque(sorted(priority_list, key=attrgetter('g')))
     print("Don't have a solve")
-    return parent, []
+    return [], []
 
 
 def isin(no, list_no):
@@ -192,7 +191,7 @@ def bidirectional_search(problem):
         goal_explored.append(parent_goal)
 
     print("Don't have a solve")
-    return []
+    return [], []
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -206,7 +205,7 @@ def A_Star_Search(problem):
     No = Node(problem.initial_state, None, None, None)  # type: Node
     No._f_(problem.initial_state, problem)
     if problem.test_goal(No.state):
-        return No, No.path_construct(No)
+        return No.path_construct(No)
 
     PRIORITY_LIST = deque([No])
     open_list = list()
@@ -216,7 +215,7 @@ def A_Star_Search(problem):
         open_list.append(parent.state)
 
         if problem.test_goal(parent.state):
-            return parent, parent.path_construct(parent)
+            return parent.path_construct(parent)
 
         for child in problem.expand(parent):  # type: objec
             if child.f == 0:
@@ -227,7 +226,7 @@ def A_Star_Search(problem):
             PRIORITY_LIST.append(child)
         open_list.remove(parent.state)
         PRIORITY_LIST = deque(sorted(PRIORITY_LIST, key=attrgetter('f')))
-
+    return [], []
 
 def best_greedy_search(problem):
     """
@@ -235,7 +234,7 @@ def best_greedy_search(problem):
         """
     No = Node(problem.initial_state, None, None, None)  # type: Node
     if problem.test_goal(No.state):
-        return No, No.path_construct(No)
+        return No.path_construct(No)
 
     PRIORITY_LIST = deque([No])
     open_list = list()
@@ -245,7 +244,7 @@ def best_greedy_search(problem):
         open_list.append(parent.state)
 
         if problem.test_goal(parent.state):
-            return parent, parent.path_construct(parent)
+            return parent.path_construct(parent)
 
         for child in problem.expand(parent):  # type: object
             if child.state in open_list:
@@ -255,3 +254,4 @@ def best_greedy_search(problem):
         open_list.remove(parent.state)
 
         PRIORITY_LIST = deque(sorted(PRIORITY_LIST, key=attrgetter('h')))
+    return [], []
