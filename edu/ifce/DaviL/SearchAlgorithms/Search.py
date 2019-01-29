@@ -145,15 +145,22 @@ def isin(no, list_no):
 # TODO
 def path(begin, finish):
     path = []
+    action=[]
     aux = begin.parent
     while aux is not None:
         path.append(aux.state)
+        if(aux.parent is not None):
+         action.append(aux.action)
+            
         aux = aux.parent
     path = path[::-1]
+    action=action[::-1]
     aux = finish.parent
     while aux is not None:
         if aux.state not in path:
             path.append(aux.state)
+            if(aux.parent is not None):
+                action.append(aux.action)
         aux = aux.parent
     return path
 
@@ -179,7 +186,7 @@ def bidirectional_search(problem):
         parent_goal = stack_goal.get()
         aux1, i = isin(parent_start, stack_goal)
         if (aux1):
-            return path(parent_start, stack_goal[i])
+            return path(parent_start, stack_goal[i]), parent_start.action
 
         aux1, i = isin(parent_goal, stack_start)
         if (aux1):
