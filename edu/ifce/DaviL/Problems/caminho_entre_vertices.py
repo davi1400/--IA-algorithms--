@@ -136,7 +136,7 @@ class caminho_entre_vertices(Problem):
         p=self.initial_state
         return p
 
-    def expand(self, parent, useless):
+    def expand(self, parent, useless=None):
         _list = []  #
         for state in self.actions(parent.state):
             new_node = Node(state, parent, [state,parent.state], self.path_cost(parent.path_cost, parent.state, state), self.heuristic(state))
