@@ -107,7 +107,7 @@ class Aspirador(Problem):
 
     def heuristic(self, state):
 
-        return (100*(len(np.where(state[1]==0)[0])))
+        return (10*(len(np.where(state[1]==1)[0])))
 
     def test_goal(self, state):
         if (np.sum(state[1])==0):
