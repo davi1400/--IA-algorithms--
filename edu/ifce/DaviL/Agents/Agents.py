@@ -44,7 +44,7 @@ class AgentAStar(SimpleProblemSolvingAgent):
 
     def __call__(self, percept, problem):
         path, acts = self.search(problem)
-        if path is []:
+        if not path:
             print "Not path"
             return []
         else:
@@ -70,7 +70,7 @@ class AgentBestGreedySearch(SimpleProblemSolvingAgent):
 
     def __call__(self, percept, problem):
         path, acts = self.search(problem)
-        if path is []:
+        if not path:
             print "Not path"
             return []
         else:
@@ -99,7 +99,7 @@ class AgentBreathFirstSearch(SimpleProblemSolvingAgent):
 
     def __call__(self, percept, problem):
         path, acts = self.search(problem)
-        if path is []:
+        if not path:
             print "Not path"
             return []
         else:
@@ -125,7 +125,7 @@ class AgentDepthFirstSearch(SimpleProblemSolvingAgent):
 
     def __call__(self, percept, problem):
         path, acts = self.search(problem)
-        if path is []:
+        if not path:
             print "Not path"
             return []
         else:
@@ -151,7 +151,7 @@ class AgentDepthFirstSearchExplored(SimpleProblemSolvingAgent):
 
     def __call__(self, percept, problem):
         path, acts = self.search(problem)
-        if path is []:
+        if not path:
             print "Not path"
             return []
         else:
@@ -177,7 +177,7 @@ class AgentBirectionalSearch(SimpleProblemSolvingAgent):
 
     def __call__(self, percept, problem):
         path, acts = self.search(problem)
-        if path is []:
+        if not path:
             print "Not path"
             return []
         else:
@@ -203,7 +203,7 @@ class AgentUnifordCostSearch(SimpleProblemSolvingAgent):
 
     def __call__(self, percept, problem):
         path, acts = self.search(problem)
-        if path is []:
+        if not path:
             print "Not path"
             return []
         else:
@@ -229,7 +229,7 @@ class AgentIterativeDeepingSearch(SimpleProblemSolvingAgent):
 
     def __call__(self, percept, problem):
         path, acts = self.search(problem)
-        if path is []:
+        if not path:
             print "Not path"
             return []
         else:

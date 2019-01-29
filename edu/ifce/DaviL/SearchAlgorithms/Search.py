@@ -19,15 +19,18 @@ def BreathFirstSearch(problem):
 
     LIFO_LIST = Queue()  # type: Queue # FIFO list
     LIFO_LIST.put(No)
-
+    iteration = 0
     while not LIFO_LIST.empty():
+        if iteration >= 1000000:
+            break
         parent = LIFO_LIST.get()
         if problem.test_goal(parent.state):
             return parent.path_construct(parent)
 
         for child in problem.expand(parent):
             LIFO_LIST.put(child)
-
+        iteration += 1
+    print 'Final depth %s' % (parent.depth)
     return [], []
 
 
@@ -38,14 +41,18 @@ def DepthFirstSearch(problem):
 
     STACK_LIST = Stack()
     STACK_LIST.push(No)
-
+    iteration = 0
     while not STACK_LIST.isEmpty():
+        if iteration >= 1000000:
+            break
         parent = STACK_LIST.pop()
         if problem.test_goal(parent.state):
             return parent.path_construct(parent)
 
         for child in problem.expand(parent):
             STACK_LIST.push(child)
+        iteration += 1
+    print 'Final depth %s' % (parent.depth)
     return [], []
 
 
@@ -68,6 +75,7 @@ def DepthFirstSearch_ExploredVector(problem):
             if child.state not in ExploredVector:
                 STACK_LIST.push(child)
         ExploredVector.append(parent.state)
+
     return [], []
 
 
