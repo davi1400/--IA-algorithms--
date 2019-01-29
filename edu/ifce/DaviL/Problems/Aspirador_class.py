@@ -114,11 +114,12 @@ class Aspirador(Problem):
             return True
         return False
     
-    def execution(self, path):
+    def execution(self, path,action):
         for next_action in range(len(path) - 1):
-            print (np.reshape(path[next_action], (3, 3)))
+            print (np.reshape(path[next_action][1], (3, 3)))
+            print(action[next_action])
 
-        print (np.reshape(path[len(path) - 1], (3, 3)))
+        print (np.reshape(path[len(path) - 1][1], (3, 3)))
         return path  
     
     def change(self,aux):
