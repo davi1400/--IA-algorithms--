@@ -48,7 +48,7 @@ class AgentAStar(SimpleProblemSolvingAgent):
             print "Not path"
             return []
         else:
-            problem.execution(path, acts)
+            return problem.execution(path, acts)
 
     def search(self, problem):
         path, acts = A_Star_Search(problem)
@@ -74,7 +74,7 @@ class AgentBestGreedySearch(SimpleProblemSolvingAgent):
             print "Not path"
             return []
         else:
-            problem.execution(path, acts)
+            return problem.execution(path, acts)
 
     def search(self, problem):
         path, acts = best_greedy_search(problem)
@@ -103,7 +103,7 @@ class AgentBreathFirstSearch(SimpleProblemSolvingAgent):
             print "Not path"
             return []
         else:
-            problem.execution(path, acts)
+            return problem.execution(path, acts)
 
     def search(self, problem):
         path, acts = BreathFirstSearch(problem)
@@ -129,7 +129,7 @@ class AgentDepthFirstSearch(SimpleProblemSolvingAgent):
             print "Not path"
             return []
         else:
-            problem.execution(path, acts)
+            return problem.execution(path, acts)
 
     def search(self, problem):
         path, acts = DepthFirstSearch(problem)
@@ -155,7 +155,7 @@ class AgentDepthFirstSearchExplored(SimpleProblemSolvingAgent):
             print "Not path"
             return []
         else:
-            problem.execution(path, acts)
+            return problem.execution(path, acts)
 
     def search(self, problem):
         path, acts = DepthFirstSearch_ExploredVector(problem)
@@ -181,7 +181,7 @@ class AgentBirectionalSearch(SimpleProblemSolvingAgent):
             print "Not path"
             return []
         else:
-            problem.execution(path, acts)
+            return problem.execution(path, acts)
 
     def search(self, problem):
         path, acts = bidirectional_search(problem)
@@ -233,7 +233,7 @@ class AgentIterativeDeepingSearch(SimpleProblemSolvingAgent):
             print "Not path"
             return []
         else:
-            problem.execution(path, acts)
+            return problem.execution(path, acts)
 
     def search(self, problem):
         path, acts = iterative_deep_limited_search(problem)

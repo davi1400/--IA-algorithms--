@@ -23,6 +23,7 @@ class EightPuzzleProblem(Problem):
         return count % 2 == 0
 
     def generate(self, random_moves):
+
         self.initial_state = [1, 2, 3, 4, 5, 6, 7, 8, 0]
         for i_random in range(random_moves):
             random_action = randint(len(self.actions(self.initial_state)))
@@ -139,6 +140,7 @@ class EightPuzzleProblem(Problem):
 
     def execution(self, path, acts):
         for next_action in range(len(path) - 1):
-            print reshape(path[next_action], (3, 3)), 'move empty tile to %s' % (acts[next_action+1])
+            print reshape(path[next_action], (3, 3))
+            print 'move empty tile to %s' % (acts[next_action+1])
         print reshape(path[len(path) - 1], (3, 3))
         return path

@@ -47,7 +47,7 @@ class RomeniaProblem(Problem):
         }
 
         return actions[state]
-
+    '''
     def result(self, state, action):
         """
         :param state:
@@ -60,7 +60,7 @@ class RomeniaProblem(Problem):
             next_state, value = choice(list(actions.items()))
             return next_state
         return state
-
+    '''
     def get_goal(self):
         return self.goal
 

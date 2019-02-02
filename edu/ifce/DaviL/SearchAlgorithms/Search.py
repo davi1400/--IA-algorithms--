@@ -21,7 +21,7 @@ def BreathFirstSearch(problem):
     LIFO_LIST.put(No)
     iteration = 0
     while not LIFO_LIST.empty():
-        if iteration >= 1000000:
+        if iteration >= 5e5:
             break
         parent = LIFO_LIST.get()
         if problem.test_goal(parent.state):
@@ -31,6 +31,7 @@ def BreathFirstSearch(problem):
             LIFO_LIST.put(child)
         iteration += 1
     print 'Final depth %s' % (parent.depth)
+    # print 'total expand nodes %s' % (str((LIFO_LIST).maxsize))
     return [], []
 
 
@@ -43,7 +44,7 @@ def DepthFirstSearch(problem):
     STACK_LIST.push(No)
     iteration = 0
     while not STACK_LIST.isEmpty():
-        if iteration >= 1000000:
+        if iteration >= 1e6:
             break
         parent = STACK_LIST.pop()
         if problem.test_goal(parent.state):
@@ -53,6 +54,7 @@ def DepthFirstSearch(problem):
             STACK_LIST.push(child)
         iteration += 1
     print 'Final depth %s' % (parent.depth)
+    # print 'total expand nodes %s' % (str(len(STACK_LIST.maxsize)))
     return [], []
 
 
@@ -107,12 +109,13 @@ def BPL(problem, limit):
 
 
 def iterative_deep_limited_search(problem):
-    for i in range(10000):
+    for i in range(12):
         boll, solution = BPL(problem, i)
         if boll:
             return solution.path_construct(solution)
         else:
             print 'dont have a solve with limit %i' % (i)
+    return [],[]
 
 
 def cost_uniform_search(problem):
@@ -121,8 +124,10 @@ def cost_uniform_search(problem):
         return No.path_construct(No)
 
     priority_list = deque([No])
-
+    iteration = 0
     while priority_list.maxlen != 0:
+        if iteration >= 1e5:
+            break
         parent = priority_list.popleft()
         if problem.test_goal(parent.state):
             return parent.path_construct(parent)
@@ -130,6 +135,9 @@ def cost_uniform_search(problem):
         for child in problem.expand(parent):  # type: object
             priority_list.append(child)
         priority_list = deque(sorted(priority_list, key=attrgetter('g')))
+        iteration += 1
+        if iteration%1e5==0:
+            print iteration
     print("Don't have a solve")
     return [], []
 
@@ -145,24 +153,24 @@ def isin(no, list_no):
 # TODO
 def path(begin, finish):
     path = []
-    action=[]
+    action = []
     aux = begin.parent
     while aux is not None:
         path.append(aux.state)
-        if(aux.parent is not None):
-         action.append(aux.action)
-            
+        if (aux.parent is not None):
+            action.append(aux.action)
+
         aux = aux.parent
     path = path[::-1]
-    action=action[::-1]
+    action = action[::-1]
     aux = finish.parent
     while aux is not None:
         if aux.state not in path:
             path.append(aux.state)
-            if(aux.parent is not None):
+            if (aux.parent is not None):
                 action.append(aux.action)
         aux = aux.parent
-    return path
+    return path, action
 
 
 def bidirectional_search(problem):
@@ -175,36 +183,40 @@ def bidirectional_search(problem):
     if problem.test_goal(start.state):
         return start, start.path_construct(start)
 
-    stack_start = Queue()
-    stack_goal = Queue()
+    lifo_start = Queue()
+    lifo_goal = Queue()
 
-    stack_start.put(start)
-    stack_goal.put(goal)
+    lifo_start.put(start)
+    lifo_goal.put(goal)
 
-    while (not (stack_goal.empty()) and not (stack_start.empty())):
-        parent_start = stack_start.get()
-        parent_goal = stack_goal.get()
-        aux1, i = isin(parent_start, stack_goal)
+    iteration = 0
+
+    while (not (lifo_goal.empty()) and not (lifo_start.empty())):
+        if iteration >= 1e5:
+            break
+        parent_start = lifo_start.get()
+        parent_goal = lifo_goal.get()
+        aux1, i = isin(parent_start, lifo_goal)
         if (aux1):
-            return path(parent_start, stack_goal[i]), parent_start.action
+            return path(parent_start, lifo_goal[i]), parent_start.action
 
-        aux1, i = isin(parent_goal, stack_start)
+        aux1, i = isin(parent_goal, lifo_start)
         if (aux1):
-            return path(stack_start[i], parent_goal)
+            return path(lifo_start[i], parent_goal)
 
         if (parent_start.state == parent_goal.state):
             return path(parent_start, parent_goal)
 
         for child in problem.expand(parent_start):
             if child not in start_explored:
-                stack_start.put(child)
+                lifo_start.put(child)
         start_explored.append(parent_start)
 
         for child in problem.expand(parent_goal):
             if child not in goal_explored:
-                stack_goal.put(child)
+                lifo_goal.put(child)
         goal_explored.append(parent_goal)
-
+        iteration += 1
     print("Don't have a solve")
     return [], []
 
