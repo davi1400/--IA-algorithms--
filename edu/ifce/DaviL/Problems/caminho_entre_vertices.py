@@ -4,8 +4,8 @@ Created on Tue Jan 29 09:23:32 2019
 
 @author: vitor
 """
-from edu.ifce.DaviL.SearchAlgorithms.Node import Node
-from edu.ifce.DaviL.SearchAlgorithms.Problem import Problem
+from Node import Node
+from Problem import Problem
 from random import shuffle
 import numpy as np
 from shapely.geometry import LineString as make_line
@@ -78,10 +78,23 @@ class caminho_entre_vertices(Problem):
             self.matrix[i*4+3]=l4
             
         
-        self.initial_state=[0,np.random.randint(0,self.h)]
+        self.initial_state=[np.random.randint(0,self.h),0]
         
-        self.goal=np.asarray([self.c,np.random.randint(0,self.h)]).reshape(1,2)
+        self.goal=np.asarray([np.random.randint(0,self.h),self.c]).reshape(1,2)
         self.action=np.append(self.vert,self.goal,axis=0)
+        
+        self.m=np.ndarray((4*self.squad_number),dtype=np.object)
+        
+        aux=self.initial_state
+        
+        for i in range(4*self.squad_number-1):
+            aux2=[]
+            for j in range(len(self.action)):
+                aux_line=make_line([aux,self.action[j]])
+                if(not self.intercept(aux_line)):
+                    aux2.append(self.action[j])
+            self.m[i] = [aux,aux2]
+            aux= self.vert[i]
             
         
         
@@ -121,17 +134,28 @@ class caminho_entre_vertices(Problem):
         return self.result(state, act)
 
     def result(self, state, action):
-        all_actions = []
+#        all_actions = []
+#        print('vertice')
+#        print(self.vert[0])
+#        print('acao')
+#        print(action[0])
+#        print('estado')
+#        print(state)
 
-        for act in action:
-            aux=make_line([(state[0],state[1]),(act[0],act[1])])
-            if(not self.intercept(aux)):
-                all_actions.append(act)
+#        for act in action:
+#
+#            aux=make_line([(state[0],state[1]),(act[0],act[1])])
+#            if(not self.intercept(aux)):
+#                all_actions.append(act)
+        
+        for i in range(4*self.squad_number):
+            if(state[0]==self.m[i][0][0] and state[1]==self.m[i][0][1] ):
+                return self.m[i][1]
 
 
              
 
-        return all_actions
+#        return all_actions
     def dt1(self,p):
         p=self.initial_state
         return p
@@ -145,7 +169,7 @@ class caminho_entre_vertices(Problem):
         return _list
 
     def path_cost(self, c, state1, state2):
-        return np.linalg.norm(state1-state2)
+        return c+np.linalg.norm(state1-state2)
 
     def heuristic(self, state):
 
