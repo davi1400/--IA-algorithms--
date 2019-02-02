@@ -5,7 +5,7 @@ Created on Tue Jan 29 09:23:32 2019
 @author: vitor
 """
 from edu.ifce.DaviL.SearchAlgorithms.Node import Node
-from edu.ifce.DaviL.SearchAlgorithms.Problem import Problem
+from edu.ifce.DaviL.Problems import Problem
 from random import shuffle
 import numpy as np
 from shapely.geometry import LineString as make_line
