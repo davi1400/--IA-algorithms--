@@ -6,15 +6,16 @@ if __name__ == '__main__':
     Realizacoes = 10
     Total = 0
 
-    list_of_agents = [AgentBreathFirstSearch(), AgentDepthFirstSearch(), AgentDepthFirstSearchExplored(), AgentIterativeDeepingSearch(),
+    list_of_agents = [AgentAStar(), AgentBestGreedySearch(), AgentBreathFirstSearch(), AgentDepthFirstSearch(), AgentDepthFirstSearchExplored(), AgentIterativeDeepingSearch(),
                       AgentUnifordCostSearch(), AgentBirectionalSearch()]
-    names_of_agents = ['largura', 'profundidade', 'profundidadade com visitados', 'profundidade iterativa', 'custo uniforme', 'bidirecional']
-    arq = open('result8puzzle.txt', 'w')
+    names_of_agents = ['A estrela', 'melhor busca', 'largura', 'profundidade', 'profundidadade com visitados', 'profundidade iterativa', 'custo uniforme', 'bidirecional']
+
     j = 0
     for Agent in (list_of_agents):
 
         hits = 0
         avg_time = 0
+        arq = open('result8puzzle.txt', 'w')
         print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++'
         print 'Agente de busca %s com 10 realizacoes' % (names_of_agents[j])
         arq.write('+++++++++++++++++++++++++++++++++++++++++++++++++++++++\n')
@@ -43,7 +44,7 @@ if __name__ == '__main__':
         arq.write('average time is %s seconds\n' % (avg_time / 10.0))
         arq.write('Acurracy %f\n' % (hits/10.0))
         j += 1
-    arq.close()
+        arq.close()
     '''
     print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     hits = 0

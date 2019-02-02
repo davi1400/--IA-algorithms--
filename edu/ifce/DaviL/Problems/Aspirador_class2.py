@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jan 24 20:42:21 2019
-
-@author: vitor
-"""
 
 from edu.ifce.DaviL.SearchAlgorithms.Node import Node
 from Problem import Problem

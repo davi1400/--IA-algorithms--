@@ -5,8 +5,8 @@ Created on Tue Jan 29 21:02:25 2019
 @author: vitor
 """
 
-from Agents import *
-from Aspirador_calss2 import Aspirador
+from edu.ifce.DaviL.Agents.Agents import *
+from edu.ifce.DaviL.Problems.Aspirador_class2 import Aspirador
 import time
 
 

@@ -39,6 +39,10 @@ class Node(object):
         path = []
         act = []
         Total_cost = node.path_cost
+        if node.parent is None:
+            path.append(node.state)
+            print 'chegou em', node.state
+            return path, act
         while node.parent is not None:
             path.append(node.state)
             act.append(node.action)

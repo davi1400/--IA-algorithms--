@@ -17,6 +17,7 @@ class RomeniaProblem(Problem):
                     'iasi', 'lugoj', 'oradea', 'pitesti', 'urziceni', 'neamt', 'vaslui', 'giurgiu', 'rimmicu vilcea',
                                                                                               'sibiu', 'mehadia']
         return aux_list[randint(len(aux_list))]
+
     def actions(self, state):
 
         """
@@ -78,6 +79,8 @@ class RomeniaProblem(Problem):
         return c + self.actions(state1)[state2]
 
     def execution(self, path, acts):
+        if path.__len__() == 1:
+            return path[0]
         for next_action in range(len(path) - 1):
             print 'Estado atual %s ir para %s' % (path[next_action], path[next_action + 1])
 

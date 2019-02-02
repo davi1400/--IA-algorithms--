@@ -5,8 +5,8 @@ Created on Tue Jan 29 21:02:25 2019
 @author: vitor
 """
 
-from Agents import *
-from caminho_entre_vertices_original import caminho_entre_vertices
+from edu.ifce.DaviL.Agents.Agents import *
+from edu.ifce.DaviL.Problems.caminho_entre_vertices_original import caminho_entre_vertices
 import time
 
 

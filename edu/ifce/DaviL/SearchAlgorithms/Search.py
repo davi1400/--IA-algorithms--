@@ -181,7 +181,7 @@ def bidirectional_search(problem):
     goal_explored = []
 
     if problem.test_goal(start.state):
-        return start, start.path_construct(start)
+        return start.path_construct(start)
 
     lifo_start = Queue()
     lifo_goal = Queue()
