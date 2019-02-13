@@ -24,19 +24,19 @@ class Aspirador(Problem):
     def actions(self, state):
         actions = ['SUD', 'UP', 'DOWN', 'LEFT', 'RIGHT']
 
-        if state[1][state[0][0]][state[0][1]] == 0:  # está limpo
+        if state[1][state[0][0]][state[0][1]] == 0:  # esta limpo
             actions.remove('SUD')
 
-        if state[0][0] >= (self.c - 1):  # não pode prosseguir para direita
+        if state[0][0] >= (self.c - 1):  # nao pode prosseguir para direita
             actions.remove('LEFT')
 
-        if state[0][0] <= 0:  # não pode prosseguir para esquerda
+        if state[0][0] <= 0:  # nao pode prosseguir para esquerda
             actions.remove('RIGHT')
 
-        if state[0][1] >= (self.l - 1):  # não pode prosseguir para cima
+        if state[0][1] >= (self.l - 1):  # nao pode prosseguir para cima
             actions.remove('UP')
 
-        if state[0][1] <= 0:  # não pode processeguir para baixo
+        if state[0][1] <= 0:  # nao pode processeguir para baixo
             actions.remove('DOWN')
 
         return self.result(state, actions)
