@@ -4,6 +4,7 @@
 """
 
 import numpy as np
+from operator import itemgetter
 
 
 def C(n):
@@ -34,7 +35,12 @@ def genereate_state():
 
 # TODO
 def neighbors(currentState):
-    pass
+    state1 = currentState.copy()
+    state1[np.random.randint(8, size=1)[0]] = np.random.randint(8, size=1)
+    state2 = currentState.copy()
+    state2[np.random.randint(8, size=1)[0]] = np.random.randint(8, size=1)
+
+    return [state1, state2]
 
 
 if __name__ == '__main__':
@@ -53,6 +59,8 @@ if __name__ == '__main__':
 
         if next_eval >= calculate_eval(state):
             break
+        if next_state is not None:
+            state = next_state
     print('the best one is: ', next_eval)
 
     # using an stochastic method for minumun local problem
@@ -72,5 +80,9 @@ if __name__ == '__main__':
 
             if next_eval >= calculate_eval(state):
                 break
-        print('the best one is: ', next_eval)
+            if next_state is not None:
+                state = next_state
         All_Best_states.update({next_eval: next_state})
+
+    print("The best state is", All_Best_states[min(All_Best_states.keys())], 'with ', min(All_Best_states.keys()),
+          "attacks")
