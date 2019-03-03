@@ -35,12 +35,13 @@ def genereate_state():
 
 # TODO
 def neighbors(currentState):
-    state1 = currentState.copy()
-    state1[np.random.randint(8, size=1)[0]] = np.random.randint(8, size=1)
-    state2 = currentState.copy()
-    state2[np.random.randint(8, size=1)[0]] = np.random.randint(8, size=1)
+    s = []
+    for i in range(2):
+        state1 = currentState.copy()
+        state1[np.random.randint(8, size=1)[0]] = np.random.randint(8, size=1)
+        s.append(state1)
 
-    return [state1, state2]
+    return s
 
 
 if __name__ == '__main__':
@@ -66,7 +67,7 @@ if __name__ == '__main__':
     # using an stochastic method for minumun local problem
     All_Best_states = {}
 
-    for i in range(200):
+    for i in range(7):
         state = genereate_state()
         while True:
             n = neighbors(state)
